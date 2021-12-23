@@ -1,5 +1,7 @@
 # yandex-algorithm-training
+
 https://yandex.ru/yaintern/algorithm-training_1
+
 https://www.youtube.com/playlist?list=PL6Wui14DvQPySdPv5NUqV3i8sDbHkCKC5
 
 1. https://contest.yandex.ru/contest/27393/problems/
