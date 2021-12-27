@@ -19,3 +19,5 @@ https://www.youtube.com/playlist?list=PL6Wui14DvQPySdPv5NUqV3i8sDbHkCKC5
 7. https://contest.yandex.ru/contest/27883/problems/
 
 8. https://contest.yandex.ru/contest/28069/problems/
+
+Решено всё кроме 1 J
