@@ -1,7 +1,7 @@
 n = int(input())
 themes = dict()
 messages = dict()
-for i in range(n):
+for i in range(1, n + 1):
 	number = int(input())
 	if number == 0:
 		theme = input()
@@ -9,12 +9,12 @@ for i in range(n):
 	else:
 		theme = messages[number]
 	themes[theme] += 1
-	messages[i + 1] = theme
+	messages[i] = theme
 	input()
 
-best_rating = 0
+max_rating = 0
 for theme, rating in themes.items():
-	if rating > best_rating:
-		best_rating = rating
+	if rating > max_rating:
+		max_rating = rating
 		answer = theme
 print(answer)
