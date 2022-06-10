@@ -17,7 +17,7 @@ left = 0
 right = max(wires)
 while left < right:
 	m = (left + right + 1) // 2
-	if sum(map(lambda x: x // m ,wires)) >= k:
+	if sum(map(lambda x: x // m, wires)) >= k:
 		left = m
 	else:
 		right = m - 1
