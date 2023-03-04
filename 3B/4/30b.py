@@ -1,3 +1,5 @@
+# 30. НОП с восстановлением ответа
+
 n = int(input())
 s1 = list(map(int, input().split()))
 m = int(input())
