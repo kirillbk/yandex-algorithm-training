@@ -10,18 +10,18 @@ GRAY = 1
 BLACK = 2
 
 '''
-	Возвращает вершины начала и конца первого встреченного цикла, если он есть
+	Возвращает вершину начала первого встреченного цикла, если он есть, иначе 0
 		graph - граф в виде матрицы
-		prev - предыдущая вершина для каждой вершины(из какой вершины попали в эту вершину)
 		visited - цвет для каждой вершины
+		prev - предыдущая вершина для каждой вершины(из какой вершины попали в эту вершину)
 		v - текущая вершина
 '''
 def dfs_get_cycle(
 	graph: list[list[int]],
-	prev: list[int],
 	visited: list[int],
+	prev: list[int],
 	v: int
-) -> tuple[int, int] | None:
+) -> int:
 
 	visited[v] = GRAY
 	for to in range(1, n + 1):
@@ -30,17 +30,17 @@ def dfs_get_cycle(
 			чтобы не возвращатся в вершину из которой пришли, т. к. граф неориентированный
 		'''
 		if graph[v][to] == 1 and to != prev[v]:
-			# есть цикл с началом в вершине to и концом в v
+			# есть цикл с началом в вершине to
 			if visited[to] == GRAY:
 				prev[to] = v
-				return to, v
+				return to
 			if visited[to] == WHITE:
 				prev[to] = v
-				cycle = dfs_get_cycle(graph, prev, visited, to)
-				if cycle:
+				cycle = dfs_get_cycle(graph, visited, prev, to)
+				if cycle != 0:
 					return cycle
-
-	return None
+	visited[v] = BLACK
+	return 0
 
 
 n = int(input())
@@ -53,20 +53,17 @@ visited = [WHITE] * (n + 1)
 prev = [0] * (n + 1)
 for v in range(1, len(graph)):
 	if visited[v] == WHITE:
-		cycle = dfs_get_cycle(graph, prev, visited, v)
-		if cycle:
+		cycle = dfs_get_cycle(graph, visited, prev, v)
+		if cycle != 0:
+			answer = list()
+			next = prev[cycle]
+			while next != cycle:
+				answer.append(next)
+				next = prev[next]
+			answer.append(cycle)
+			print('YES')
+			print(len(answer))
+			print(*answer)
 			break
-
-if cycle:
-	first, last = cycle
-	answer = list()
-	while first != last:
-		answer.append(last)
-		last = prev[last]
-	answer.append(first)
-
-	print('YES')
-	print(len(answer))
-	print(*answer)
 else:
 	print('NO')
