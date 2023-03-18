@@ -1,6 +1,6 @@
 # yandex-algorithm-training 2.0B
 
-https://yandex.ru/yaintern/algorithm-training
+https://yandex.ru/yaintern/algorithm-training_2
 
 1. https://contest.yandex.ru/contest/28730/problems/
 
