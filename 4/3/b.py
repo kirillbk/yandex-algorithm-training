@@ -2,7 +2,7 @@
 
 INF = 1_000_000
 
-def solution(start: int, finish: int, graph: list[list[int]]) -> int:
+def solution(start: int, finish: int, graph: list[list[int]]) -> list[int] | None:
     visited = [False] * len(graph)
     distance = [INF] * len(graph)
     prev = [None] * len(graph)
