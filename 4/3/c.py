@@ -5,26 +5,25 @@ from math import isinf
 
 
 def solution(start: int, finish: int, graph: list[(int, int)]) -> int:
-    visited = [False * len(graph)]
     distance = [float("inf")] * len(graph)
-    heap = []
+    pqueue = []
 
     distance[start] = 0
-    heap.append((0, start))
-    while heap:
+    pqueue.append((0, start))
+    while pqueue:
         # город с минимальным расстоянием от start
-        dist, city = heappop(heap)
-        if distance[city] < dist:
+        dist, city = heappop(pqueue)
+        if distance[city] != dist:
             continue
         if city == finish:
             break
 
         # рассмотрим все соседние города
         for to_city, l in graph[city]:
-            new_dist = dist + l
-            if new_dist < distance[to_city]:
-                distance[to_city] = new_dist
-                heappush(heap, (new_dist, to_city))
+            new_distance = dist + l
+            if new_distance < distance[to_city]:
+                distance[to_city] = new_distance
+                heappush(pqueue, (new_distance, to_city))
 
     if isinf(distance[finish]):
         return -1
