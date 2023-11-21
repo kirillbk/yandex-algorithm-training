@@ -2,28 +2,32 @@
 
 def merge(
         a: list,
-        i: int,
-        b: list,
-        j: int,
+        l: int,
+        m: int,
+        r: int,
         res: list,
-        k: int
+        i: int
     ):
+    it1 = l
+    it2 = m
 
-    while i < len(a) and j < len(b):
-        if b[j] < a[i]:
-            res[k] = b[j]
-            j += 1
+    while it1 < m and it2 < r:
+        if a[it2] < a[it1]:
+            res[i] = a[it2]
+            it2 += 1
         else:
-            res[k] = a[i]
-            i += 1
-        k += 1
+            res[i] = a[it1]
+            it1 += 1
+        i += 1
 
-    for j in range(j, len(b)):
-        res[k] = b[j]
-        k += 1
-    for i in range(i, len(a)):
-        res[k] = a[i]
-        k += 1
+    while it1 < m:
+        res[i] = a[it1]
+        it1 += 1
+        i += 1
+    while it2 < r:
+        res[i] = a[it2]
+        it2 += 1
+        i += 1
 
 
 n = int(input())
@@ -32,5 +36,5 @@ m = int(input())
 b = list(map(int, input().split()))
 
 result = [0] * (n + m)
-merge(a, 0, b, 0, result, 0)
+merge(a + b, 0, n, n + m, result, 0)
 print(*result)
