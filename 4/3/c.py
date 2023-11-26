@@ -4,15 +4,15 @@ from heapq import heappop, heappush
 from math import isinf
 
 
-def solution(start: int, finish: int, graph: list[(int, int)]) -> int:
+def solution(start: int, finish: int, graph: list[list[(int, int)]]) -> int:
     distance = [float("inf")] * len(graph)
-    pqueue = []
+    heap = []
 
     distance[start] = 0
-    pqueue.append((0, start))
-    while pqueue:
+    heap.append((0, start))
+    while heap:
         # город с минимальным расстоянием от start
-        dist, city = heappop(pqueue)
+        dist, city = heappop(heap)
         if distance[city] != dist:
             continue
         if city == finish:
@@ -23,7 +23,7 @@ def solution(start: int, finish: int, graph: list[(int, int)]) -> int:
             new_distance = dist + l
             if new_distance < distance[to_city]:
                 distance[to_city] = new_distance
-                heappush(pqueue, (new_distance, to_city))
+                heappush(heap, (new_distance, to_city))
 
     if isinf(distance[finish]):
         return -1
