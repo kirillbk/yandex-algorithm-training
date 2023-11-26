@@ -2,7 +2,7 @@
 
 def hash(a: list[int], n: int) -> list[int]:
     h = [0] * (n + 1)
-    for i in range(n):
+    for i in range(1, n + 1):
         h[i] = (h[i - 1] * X + a[i - 1]) % P
 
     return h
