@@ -1,6 +1,6 @@
 # yandex-algorithm-training 3.0AB
 
-https://yandex.ru/yaintern/algorithm-training
+https://yandex.ru/yaintern/training/algorithm-training_3
 
 https://www.youtube.com/playlist?list=PL6Wui14DvQPz_vzmNVOYBRqML6l51lP0G
 
