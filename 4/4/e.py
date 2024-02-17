@@ -11,8 +11,7 @@ def solution(n: int, sequence: str, stack: list[str]):
             solution(n , sequence + b, stack)
             stack.pop()
     if stack:
-        tmp = stack[-1]
-        stack.pop()
+        tmp = stack.pop()
         b = ')' if tmp == '(' else ']'
         solution(n, sequence + b, stack)
         stack.append(tmp)
