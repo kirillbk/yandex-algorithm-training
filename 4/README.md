@@ -1,4 +1,4 @@
-https://yandex.ru/yaintern/algorithm-training
+https://yandex.ru/yaintern/training/algorithm-training_4
 
 https://www.youtube.com/playlist?list=PLXtiZNKIobF5LqK3JO-66tjHlBmrS0MxS
 
@@ -12,4 +12,4 @@ warmup. https://contest.yandex.ru/contest/53027/problems/
 
 4. https://contest.yandex.ru/contest/53032/problems/
 
-final. https://contest.yandex.ru/contest/53033/problems/ 
+final. https://contest.yandex.ru/contest/53033/problems/

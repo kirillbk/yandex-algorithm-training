@@ -1,6 +1,6 @@
 # C. Максимальный разрез
 
-def solution1(graph: list[list[int]], n: int):
+def solution1(graph: list[list[int]], n: int) -> tuple[int, list[int]]:
     def solve(v: int, state: list[int], cut_weight: int):
         if v == n:
             nonlocal max_cut_weight, max_cut_weight
@@ -30,14 +30,12 @@ def solution1(graph: list[list[int]], n: int):
 def solution2(graph: list[list[int]], n: int) -> tuple[int, list[int]]:
     max_cut_weight = 0
     max_cut_state = 0
-    cut_weight = [0] * 2**n
+    cut_weight = [0] * (2**n // 2 + 1)
 
     for state in range(1, 2**n // 2 + 1):
         v = 0
-        mask = 1
-        while not (state & mask):
+        while not (state & (1 << v)):
             v += 1
-            mask <<= 1
 
         cut_weight[state] = cut_weight[state & ~(1 << v)]
         for u in range(n):
@@ -50,8 +48,8 @@ def solution2(graph: list[list[int]], n: int) -> tuple[int, list[int]]:
             max_cut_weight = cut_weight[state]
             max_cut_state = state
 
-    max_cut_state = f'{max_cut_state:0{n}b}'.replace('1', '2').replace('0', '1')[::-1]
-    return max_cut_weight, [*map(int, max_cut_state)]
+    partitions = [1 if max_cut_state & (1 << v) else 2 for v in range(n)]
+    return max_cut_weight, partitions
 
 
 n = int(input())
@@ -61,7 +59,7 @@ for _ in range(n):
     edges = list(edges)
     graph.append(edges)
 
-weight, partitions = solution1(graph, n)
+weight, partitions = solution2(graph, n)
 
 print(weight)
 print(*partitions)
