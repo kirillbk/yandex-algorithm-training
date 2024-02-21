@@ -2,6 +2,7 @@
 
 from heapq import heappush, heappop
 
+
 n, w = map(int, input().split())
 tasks = list()
 for i in range(1, n + 1):

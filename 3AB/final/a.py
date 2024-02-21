@@ -2,6 +2,7 @@
 
 from collections import defaultdict
 
+
 n = int(input())
 train = list()
 items = defaultdict(int)
