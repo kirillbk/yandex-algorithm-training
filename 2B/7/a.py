@@ -1,3 +1,5 @@
+# A. Закраска прямой
+
 n = int(input())
 events = list()
 for i in range(n):
