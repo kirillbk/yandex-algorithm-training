@@ -12,13 +12,12 @@ for _ in range(t):
 
     for i in range(1, n):
         size += 1
+        m = min(m, a[i])
         if a[i] < size or m < size:
             answer.append(i - start)
             size = 1
             m = a[i]
             start = i
-        else:
-            m = min(m, a[i])
     answer.append(n - start)
 
     print(len(answer))
