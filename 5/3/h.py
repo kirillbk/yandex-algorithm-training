@@ -22,20 +22,14 @@ class Match:
         self.a = Point(x1, y1)
         self.b = Point(x2, y2)
 
-    def __eq__(self, other: Any) -> bool:
+    def translate(self, other: Any) -> Point | None:
         if not isinstance(other, Match):
             raise NotImplementedError
-        return (
-            self.b.x - self.a.x == other.b.x - other.a.x
-            and self.b.y - self.a.y == other.b.y - other.a.y
-        )
-
-    def translate(self, other: Any) -> tuple[int, int] | None:
-        if not isinstance(other, Match):
-            raise NotImplementedError
-        if self != other:
+        va = self.a.x - other.a.x, self.a.y - other.a.y
+        vb = self.b.x - other.b.x, self.b.y - other.b.y
+        if va != vb:
             return None
-        return other.a.x - self.a.x, other.a.y - self.a.y
+        return va
 
 
 n = int(input())

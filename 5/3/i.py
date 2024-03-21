@@ -98,14 +98,14 @@ def find_player(teams: list[Team], player: str) -> Player | None:
 teams = defaultdict(Team)
 
 for line in stdin:
-    if m := search(r'"(?P<team1>.+)" \- "(?P<team2>.+)" (?P<g1>\d+):(?P<g2>\d+)', line):
-        team1 = m['team1']
-        g1 = int(m['g1'])
+    if m := search(r'"(.+)" \- "(.+)" (\d+):(\d+)', line):
+        team1, team2, g1, g2 = m.groups()
+
+        g1 = int(g1)
         goals1 = [Goal(stdin.readline()) for _ in range(g1)]
         teams[team1].add_goals(goals1)
 
-        team2 = m['team2']
-        g2 = int(m['g2'])
+        g2 = int(int(g2))
         goals2 = [Goal(stdin.readline()) for _ in range(g2)]
         teams[team2].add_goals(goals2)
 
