@@ -5,7 +5,7 @@
 
 # Решение должно иметь сложность O(n), где n - размер списка.
 
-nums = [int (i) for i in input().split()]
+nums = [int(i) for i in input().split()]
 
 max1 = max(nums[0], nums[1])
 max2 = min(nums[0], nums[1])
