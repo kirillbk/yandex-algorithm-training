@@ -1,6 +1,5 @@
 # C. Надпись на табло
 
-
 # удалить повторяющиеся строки и пустые строки сверху/снизу
 def compress(screen: list[str]) -> list[str]:
     new_screen = [screen[0]]
