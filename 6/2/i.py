@@ -4,26 +4,24 @@ from collections.abc import Iterable
 
 
 def solution(a: Iterable[int], b: Iterable[int], p: Iterable[int], n: int) -> list[int]:
-    a_ = list(enumerate(a))
-    b_ = list(enumerate(b))
+    a_b = list(zip(range(n), a, b))
     p = list(p)
-
-    a = sorted(a_, key=lambda x: (x[1], b_[x[0]][1], -x[0]), reverse=True)
-    b = sorted(b_, key=lambda x: (x[1], a_[x[0]][1], -x[0]), reverse=True)
+    a = sorted(a_b, key=lambda x: (x[1], a_b[x[0]][2]), reverse=True)
+    b = sorted(a_b, key=lambda x: (x[2], a_b[x[0]][1]), reverse=True)
 
     ans = [0] * n
     i = j = 0
     learned = [False] * (n + 1)
     for k in range(n):
-        while i < n and learned[a[i][0]]:
-            i += 1
-        while j < n and learned[b[j][0]]:
-            j += 1
-        if i < n and (p[k] == 0 or j == n):
-            no, _ = a[i]
+        if p[k] == 0:
+            while i < n and learned[a[i][0]]:
+                i += 1
+            no = a[i][0]
             i += 1
         else:
-            no, _ = b[j]
+            while j < n and learned[b[j][0]]:
+                j += 1
+            no = b[j][0]
             j += 1
         learned[no] = True
         ans[k] = no + 1

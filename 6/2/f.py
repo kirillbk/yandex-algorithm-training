@@ -13,7 +13,7 @@ for i in range(1, n + 1):
 
 mul_pref = [0] * (n + 1)
 for i in range(1, n + 1):
-    mul_pref[i] = mul_pref[i - 1] + a[i - 1] * (sum_pref[-1] - sum_pref[i])
+    mul_pref[i] = mul_pref[i - 1] + (a[i - 1] * (sum_pref[-1] - sum_pref[i])) % M
     mul_pref[i] %= M
 
 ans = 0
