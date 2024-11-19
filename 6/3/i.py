@@ -1,64 +1,50 @@
 # I. Автоматизированный склад
 
-from operator import itemgetter
 from collections import deque
+from collections.abc import Iterable
+from operator import itemgetter
 
 
-TIME = 0
-
-
-def solution(n: int, a: int, b: int, rovers: list[tuple[int, int]]) -> list[int]:
+def solution(n: int, a: int, b: int, rovers: Iterable[tuple[int, int]]) -> list[int]:
     # сортировка всех роверов по времени прибытия
     tmp = ((rovers[i][0], rovers[i][1], i) for i in range(n))
     rovers = sorted(tmp, key=itemgetter(1))
 
-    roads = [deque() for _ in range(5)]
+    roads = [deque() for _ in range(4)]
     for dir, t, i in rovers:
-        roads[dir].append((t, i))
+        roads[dir - 1].append((t, i))
 
-    # a - часть главной дороги без помех справа, b - возможны помехи справа
-    if a > b and not (a == 4 and b == 1) or a == 1 and b == 4:
-        a, b = b, a
-    # главная(и второстепенная) дорога поворачивает
-    is_turn = b - a != 2
+    a -= 1
+    b -= 1
+
+    is_ready = lambda dir: roads[dir] and roads[dir][0][0] <= time
+    is_main = lambda dir: dir == a or dir == b
+    right = lambda dir: (dir - 1) % 4
 
     ans = [0] * n
-    cntr = 0
-    time = 0
-    while cntr < n:
-        # есть ровер на дороге a
-        if roads[a] and roads[a][0][TIME] <= time:
-            _, no = roads[a].popleft()
-            cntr += 1
-            ans[no] = time
-            # главная дорога прямая и есть ровер на дороге b
-            if not is_turn and roads[b] and roads[b][0][TIME] <= time:
-                _, no = roads[b].popleft()
-                cntr += 1
+    time = 1
+    while n > 0:
+        moves = [False] * 4
+
+        for dir in range(4):
+            if not is_ready(dir):
+                continue
+            # ровер на главной дороге и на главной дороге справа есть помеха
+            if is_main(dir) and is_main(right(dir)) and is_ready(right(dir)):
+                continue
+            # ровер на второстепенной дороге и есть ровер на главной дороге или справа
+            if not is_main(dir) and (
+                is_ready(a) or is_ready(b) or is_ready(right(dir))
+            ):
+                continue
+            moves[dir] = True
+
+        for dir in range(4):
+            if moves[dir]:
+                _, no = roads[dir].popleft()
                 ans[no] = time
-        # есть ровер на доргое b
-        elif roads[b] and roads[b][0][TIME] <= time:
-            _, no = roads[b].popleft()
-            cntr += 1
-            ans[no] = time
-        # нет роверов на главной дороге, рассматриваем второстепенную
-        else:
-            for dir in range(1, 5):
-                if dir == a or dir == b:
-                    continue
-                right = 4 if dir == 1 else dir - 1
-                # есть ровер и нет помехи справа
-                if (
-                    roads[dir]
-                    and roads[dir][0][TIME] <= time
-                    and (not roads[right] or roads[right][0][TIME] > time)
-                ):
-                    _, no = roads[dir].popleft()
-                    cntr += 1
-                    ans[no] += time
-                    # есть поворот на второстепенной дороге, может проехать только один ровер
-                    if is_turn:
-                        break
+                n -= 1
+
         time += 1
 
     return ans
